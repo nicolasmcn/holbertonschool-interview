@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-    """
-    Determine if all boxes can be opened.
-    """
+"""Determine if all boxes can be opened."""
 def canUnlockAll(boxes):
+"""function check if all the boxes can be open"""
+
     n = len(boxes)
     opened_boxes = set([0])
     keys = boxes[0]
