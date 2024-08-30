@@ -1,21 +1,17 @@
 #!/usr/bin/python3
 """Determine if all boxes can be opened."""
+
+
 def canUnlockAll(boxes):
-"""function check if all the boxes can be open"""
+    """ Method that determines if all boxes can be opened """
 
-    n = len(boxes)
-    opened_boxes = set([0])
-    keys = boxes[0]
-    stack = keys.copy()
-
-    while stack:
-        key = stack.pop()
-
-        if key < n and key not in opened_boxes:
-            opened_boxes.add(key)
-            for new_key in boxes[key]:
-                if new_key not in opened_boxes:
-                    stack.append(new_key)
-
-    return len(opened_boxes) == n
-
+    for i in range(1, len(boxes)):
+        list_lock = []
+        a = 0
+        for b in boxes:
+            if a != i:
+                list_lock.extend(b)
+            a += 1
+        if i not in list_lock:
+            return False
+    return True
