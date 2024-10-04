@@ -1,65 +1,37 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "lists.h"
 
-int is_palindrome(listint_t **head) {
-    listint_t *slow, *fast, *reverseHead;
-    int result;
-
-    if (*head == NULL || (*head)->next == NULL) {
+/**
+ * is_palindrome_recursive - checks if two halves of a linked list are equal
+ * @left: pointer to the left half of the linked list
+ * @right: pointer to the right half of the linked list
+ * Return: 1 if equal, 0 otherwise
+ */
+int is_palindrome_recursive(listint_t **left, listint_t *right)
+{
+    if (right == NULL)
         return 1;
-    }
 
-    slow = *head;
-    fast = (*head)->next;
+    if (!is_palindrome_recursive(left, right->next))
+        return 0;
 
-    while (fast != NULL && fast->next != NULL) {
-        slow = slow->next;
-        fast = fast->next->next;
-    }
+    if ((*left)->n != right->n)
+        return 0;
 
-    reverseHead = reverse(slow->next);
-    slow->next = NULL;
-
-    result = cmp(*head, reverseHead);
-
-    reverse(reverseHead);
-    slow->next = reverseHead;
-
-    return result;
+    *left = (*left)->next;
+    return 1;
 }
 
-
-int cmp(listint_t *head1,listint_t *head2) 
+/**
+ * is_palindrome - checks if a singly linked list is a palindrome
+ * @head: pointer to the head of the linked list
+ * Return: 1 if it is a palindrome, 0 otherwise
+ */
+int is_palindrome(listint_t **head)
 {
-	listint_t *list1 = head1;
-	listint_t *list2 = head2;
+    if (*head == NULL || (*head)->next == NULL)
+        return 1;
 
-	while (list1 != NULL && list2 != NULL)
-	{
-		if (list1->n != list2->n)
-			return 0;
-
-		list1 = list1->next;
-		list2 = list2->next;
-	}
-
-	return 1;
-}
-
-listint_t *reverse(listint_t *head)
-{
-	listint_t *current = head;
-	listint_t *prev = NULL;
-	listint_t *next = NULL;
-
-
-	while (current != NULL)
-	{
-		next = current->next;
-		current->next = prev;
-
-		prev = current;
-		current = next;
-	}
-
-	return prev;
+    return is_palindrome_recursive(head, *head);
 }
