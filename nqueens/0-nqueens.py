@@ -3,7 +3,7 @@ import sys
 
 
 def is_safe(coords, row, col):
-    """ queens puzzle is the challenge
+    """ queens puzzle is the challenges
     """
     rows = []
     cols = []
